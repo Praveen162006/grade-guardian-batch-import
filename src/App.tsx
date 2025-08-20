@@ -11,6 +11,8 @@ import { AuthProvider } from "./providers/AuthProvider";
 import PrivateRoute from "./components/PrivateRoute";
 import Header from "./components/Header";
 import PerformanceReport from "./pages/PerformanceReport";
+import BrandSentiment from "./pages/BrandSentiment";
+import BrandSentimentDemo from "./components/BrandSentimentDemo";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -42,6 +44,12 @@ const App = () => (
                 <PerformanceReport />
               </PrivateRoute>
             } />
+            <Route path="/brand-sentiment" element={
+              <PrivateRoute>
+                <BrandSentiment />
+              </PrivateRoute>
+            } />
+            <Route path="/demo" element={<BrandSentimentDemo />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
