@@ -1,10 +1,10 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '@/providers/AuthProvider';
 import { useToast } from '@/components/ui/use-toast';
-import { LogOut, User, Settings, UserPlus, BookOpen } from 'lucide-react';
+import { LogOut, User, Settings, UserPlus, BookOpen, BarChart3, TrendingUp } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,6 +18,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 const Header: React.FC = () => {
   const { user, signOut } = useAuth();
   const { toast } = useToast();
+  const location = useLocation();
 
   const handleSignOut = async () => {
     await signOut();
@@ -47,9 +48,41 @@ const Header: React.FC = () => {
             <BookOpen className="h-5 w-5 text-white" />
           </div>
           <span className="font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 hidden md:block">
-            Student Manager
+            Grade Guardian
           </span>
         </Link>
+        
+        {/* Navigation Menu */}
+        {user && (
+          <nav className="hidden md:flex items-center space-x-6">
+            <Link 
+              to="/" 
+              className={`text-sm font-medium transition-colors hover:text-primary ${
+                location.pathname === '/' ? 'text-primary' : 'text-muted-foreground'
+              }`}
+            >
+              Students
+            </Link>
+            <Link 
+              to="/performance-report" 
+              className={`text-sm font-medium transition-colors hover:text-primary ${
+                location.pathname === '/performance-report' ? 'text-primary' : 'text-muted-foreground'
+              }`}
+            >
+              <BarChart3 className="h-4 w-4 inline mr-1" />
+              Reports
+            </Link>
+            <Link 
+              to="/brand-sentiment" 
+              className={`text-sm font-medium transition-colors hover:text-primary ${
+                location.pathname === '/brand-sentiment' ? 'text-primary' : 'text-muted-foreground'
+              }`}
+            >
+              <TrendingUp className="h-4 w-4 inline mr-1" />
+              Brand Sentiment
+            </Link>
+          </nav>
+        )}
         
         <div>
           {user ? (
